@@ -1,0 +1,13 @@
+{% extends "shop/base.html" %}
+{% block title %}Yangi murojaat - NestMarket{% endblock %}
+{% block content %}
+<div class="col-md-6 mx-auto">
+<h3 class="mb-3">Yangi murojaat</h3>
+<form method="post" class="card p-4">
+  {% csrf_token %}
+  <div class="mb-2"><label class="form-label">Mavzu</label><input name="subject" class="form-control" required></div>
+  <div class="mb-3"><label class="form-label">Xabar</label><textarea name="body" class="form-control" rows="4" required></textarea></div>
+  <button class="btn btn-primary">Yuborish</button>
+</form>
+</div>
+{% endblock %}

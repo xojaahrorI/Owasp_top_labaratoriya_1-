@@ -1,0 +1,15 @@
+{% extends "shop/base.html" %}
+{% block title %}Support navbati - NestMarket{% endblock %}
+{% block content %}
+<h3 class="mb-3">Support navbati (barcha mijozlar)</h3>
+<table class="table bg-white">
+  <tr><th>Mijoz</th><th>Mavzu</th><th>Status</th><th>Sana</th><th></th></tr>
+  {% for t in tickets %}
+  <tr><td>{{ t.user.username }}</td><td>{{ t.subject }}</td><td>{{ t.status }}</td><td>{{ t.created_at|date:"Y-m-d" }}</td>
+  <td><a href="/support/{{ t.id }}/" class="btn btn-sm btn-outline-primary">Ochish</a></td></tr>
+  {% endfor %}
+</table>
+<div class="alert alert-success mt-3">
+  ✅ Siz support xodimi sifatida kirdingiz. Flag: <code>{{ flag }}</code>
+</div>
+{% endblock %}

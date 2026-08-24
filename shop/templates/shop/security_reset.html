@@ -1,0 +1,23 @@
+{% extends "shop/base.html" %}
+{% block title %}Parolni tiklash - NestMarket{% endblock %}
+{% block content %}
+<div class="col-md-6 mx-auto">
+{% if not valid %}
+<div class="alert alert-danger">Tiklash havolasi yaroqsiz yoki muddati o'tgan.</div>
+{% else %}
+<h3 class="mb-3">Yangi parol o'rnatish - {{ username }}</h3>
+<form method="post" class="card p-4">
+  {% csrf_token %}
+  <div class="mb-3"><label class="form-label">Yangi parol</label><input type="password" name="password" class="form-control" required></div>
+  <button class="btn btn-primary">Parolni yangilash</button>
+</form>
+{% if flag_note %}
+<div class="alert alert-warning mt-3">
+  <b>⚠️ Diqqat:</b> Siz imtiyozli (staff/admin) hisob uchun tiklash tokenini muvaffaqiyatli
+  hosil qildingiz. Bu — zaif/taxmin qilinadigan token generatsiyasining real oqibati.<br><br>
+  <code>{{ flag_note }}</code>
+</div>
+{% endif %}
+{% endif %}
+</div>
+{% endblock %}

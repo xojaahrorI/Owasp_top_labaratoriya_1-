@@ -1,0 +1,24 @@
+{% extends "shop/base.html" %}
+{% block title %}Sozlamalarni tiklash - NestMarket{% endblock %}
+{% block content %}
+<div class="col-md-8 mx-auto">
+<h3 class="mb-3">Sozlamalarni zaxira fayldan tiklash</h3>
+<p class="text-muted">Avval eksport qilingan (.nmbak) sozlamalar faylingizni qayta yuklang.</p>
+
+<div class="card p-3 mb-3">
+  <h6>Fayl formati haqida (namuna generator)</h6>
+  <pre class="small bg-light p-2 rounded">{{ example }}</pre>
+</div>
+
+<form method="post" class="card p-4">
+  {% csrf_token %}
+  <label class="form-label">Base64 (.nmbak) tarkibi</label>
+  <textarea name="payload" class="form-control mb-2" rows="4" placeholder="Base64 qatorini shu yerga joylashtiring"></textarea>
+  <button class="btn btn-primary">Tiklash</button>
+</form>
+
+{% if result_message %}
+<div class="alert alert-{{ result_kind }} mt-3">{{ result_message }}</div>
+{% endif %}
+</div>
+{% endblock %}

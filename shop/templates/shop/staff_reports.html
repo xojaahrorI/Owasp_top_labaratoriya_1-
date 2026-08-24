@@ -1,0 +1,16 @@
+{% extends "shop/base.html" %}
+{% block title %}Hisobotlar - NestMarket{% endblock %}
+{% block content %}
+<h3 class="mb-3">Hisobotlar</h3>
+<table class="table bg-white">
+  <tr><th>#</th><th>Mijoz</th><th>Sana</th><th>Status</th><th>Summa</th></tr>
+  {% for o in recent_orders %}
+  <tr><td>{{ o.id }}</td><td>{{ o.user.username }}</td><td>{{ o.created_at|date:"Y-m-d" }}</td><td>{{ o.get_status_display }}</td><td>${{ o.total }}</td></tr>
+  {% endfor %}
+</table>
+<div class="alert alert-success mt-3">
+  ✅ Siz ushbu sahifaga xodim (staff) huquqi bilan kirdingiz.
+  Agar bu huquqni odatiy tarzda emas balki sozlamalarni import qilish orqali
+  qo'lga kiritgan bo'lsangiz — flag: <code>{{ flag }}</code>
+</div>
+{% endblock %}

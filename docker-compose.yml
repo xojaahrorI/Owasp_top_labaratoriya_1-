@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  nestmarket:
+    build: .
+    container_name: nestmarket_lab
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1

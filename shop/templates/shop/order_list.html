@@ -1,0 +1,21 @@
+{% extends "shop/base.html" %}
+{% block title %}Buyurtmalarim - NestMarket{% endblock %}
+{% block content %}
+<h3 class="mb-3">Buyurtmalarim</h3>
+{% if orders %}
+<table class="table bg-white">
+  <tr><th>#</th><th>Sana</th><th>Status</th><th>Summa</th><th></th></tr>
+  {% for o in orders %}
+  <tr>
+    <td>{{ o.id }}</td>
+    <td>{{ o.created_at|date:"Y-m-d" }}</td>
+    <td><span class="badge bg-secondary">{{ o.get_status_display }}</span></td>
+    <td>${{ o.total }}</td>
+    <td><a href="/orders/{{ o.id }}/" class="btn btn-sm btn-outline-primary">Ko'rish</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p class="text-muted">Hali buyurtmalaringiz yo'q.</p>
+{% endif %}
+{% endblock %}

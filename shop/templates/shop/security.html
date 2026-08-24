@@ -1,0 +1,26 @@
+{% extends "shop/base.html" %}
+{% block title %}Xavfsizlik - NestMarket{% endblock %}
+{% block content %}
+<div class="col-md-6 mx-auto">
+<h3 class="mb-3">Parolni tiklash</h3>
+<p class="text-muted">Foydalanuvchi nomingizni kiriting, biz tiklash havolasini yuboramiz.</p>
+<form method="post" class="card p-4">
+  {% csrf_token %}
+  <div class="mb-3"><label class="form-label">Foydalanuvchi nomi</label><input name="username" class="form-control" required></div>
+  <button class="btn btn-primary">Tiklash havolasini yuborish</button>
+</form>
+
+{% if reset_link %}
+<div class="alert alert-info mt-3">
+  <b>[DEMO REJIMI]</b> Odatda bu havola email orqali yuboriladi. Demo/lab maqsadida shu yerda ko'rsatilmoqda:<br>
+  <a href="{{ reset_link }}">{{ reset_link }}</a>
+</div>
+{% endif %}
+</div>
+
+<!--
+  build-note (2024-11): reset token = md5(username + ":" + RESET_TOKEN_SALT)
+  RESET_TOKEN_SALT="{{ salt_hint }}"
+  TODO: move to settings.SECRET_KEY-derived HMAC before v2 launch
+-->
+{% endblock %}

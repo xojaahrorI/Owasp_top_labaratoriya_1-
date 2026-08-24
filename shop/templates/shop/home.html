@@ -1,0 +1,39 @@
+{% extends "shop/base.html" %}
+{% block title %}NestMarket - Bosh sahifa{% endblock %}
+{% block content %}
+<div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
+  <h1 class="display-6 fw-bold">NestMarket'ga xush kelibsiz</h1>
+  <p class="col-md-8 fs-5">Elektronika, uy-ro'zg'or buyumlari va boshqa minglab mahsulotlar - qulay narxlarda,
+  tez yetkazib berish bilan.</p>
+  <a href="/products/" class="btn btn-primary btn-lg">Xarid qilishni boshlash</a>
+  <form action="/search/" method="get" class="mt-3 d-flex" style="max-width:500px;">
+    <input class="form-control me-2" type="search" name="q" placeholder="Mahsulot qidirish...">
+    <button class="btn btn-outline-secondary" type="submit">Qidirish</button>
+  </form>
+</div>
+
+<h4 class="mb-3">Kategoriyalar</h4>
+<div class="mb-4">
+  {% for c in categories %}
+    <a href="/products/?category={{ c.slug }}" class="btn btn-sm btn-outline-secondary me-2 mb-2">{{ c.name }}</a>
+  {% endfor %}
+</div>
+
+<h4 class="mb-3">Tavsiya etilgan mahsulotlar</h4>
+<div class="row row-cols-2 row-cols-md-4 g-3">
+  {% for p in featured %}
+  <div class="col">
+    <a href="/products/{{ p.slug }}/" class="text-decoration-none text-dark">
+      <div class="card h-100 shadow-sm">
+        <div class="product-thumb" style="background:{{ p.accent }};"><img src="/static/shop/img/icons/{{ p.category.slug }}.svg" alt="{{ p.category.name }}"></div>
+        <div class="card-body">
+          <div class="small text-muted">{{ p.category.name }}</div>
+          <div class="fw-semibold">{{ p.name }}</div>
+          <div class="text-primary">${{ p.price }}</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

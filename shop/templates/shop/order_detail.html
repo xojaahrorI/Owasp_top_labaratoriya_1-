@@ -1,0 +1,35 @@
+{% extends "shop/base.html" %}
+{% block title %}Buyurtma #{{ order.id }} - NestMarket{% endblock %}
+{% block content %}
+<h3 class="mb-3">Buyurtma #{{ order.id }}</h3>
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <p><b>Mijoz:</b> {{ order.user.username }}</p>
+        <p><b>Sana:</b> {{ order.created_at|date:"Y-m-d H:i" }}</p>
+        <p><b>Status:</b> {{ order.get_status_display }}</p>
+        <p><b>Manzil:</b> {{ order.shipping_address }}</p>
+        <p><b>Tracking:</b> {{ order.tracking_code }}</p>
+      </div>
+      <div class="col-md-6">
+        <h6>Mahsulotlar</h6>
+        {% for it in order.items.all %}
+        <div class="d-flex justify-content-between small">
+          <span>{{ it.product.name }} × {{ it.quantity }}</span><span>${{ it.line_total }}</span>
+        </div>
+        {% endfor %}
+        <hr>
+        <div class="fw-bold">Jami: ${{ order.total }}</div>
+      </div>
+    </div>
+    {% if order.internal_notes %}
+    <hr>
+    <div class="alert alert-warning">
+      <b>Internal note</b> (faqat xodimlar uchun mo'ljallangan maydon):<br>
+      <code>{{ order.internal_notes }}</code>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

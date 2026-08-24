@@ -1,0 +1,54 @@
+{% extends "shop/base.html" %}
+{% block title %}Checkout - NestMarket{% endblock %}
+{% block content %}
+<h3 class="mb-3">Buyurtmani rasmiylashtirish</h3>
+<div class="row">
+  <div class="col-md-7">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h6>Promo-kod</h6>
+        <form method="post" class="d-flex mb-2">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="apply_coupon">
+          <input type="text" name="coupon_code" class="form-control me-2" placeholder="Masalan: WELCOME10">
+          <button class="btn btn-outline-primary">Qo'llash</button>
+        </form>
+        {% if applied_codes %}
+        <div class="small text-muted">Qo'llangan kodlar: {{ applied_codes|join:", " }} (jami chegirma: {{ discount_percent_total }}%)</div>
+        <form method="post"><input type="hidden" name="action" value="clear_coupons">{% csrf_token %}
+          <button class="btn btn-sm btn-link p-0">Tozalash</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="place_order">
+      <div class="card">
+        <div class="card-body">
+          <h6>Yetkazib berish manzili</h6>
+          <textarea name="address" class="form-control mb-3" rows="2" placeholder="To'liq manzilingiz" required></textarea>
+          <button class="btn btn-primary btn-lg w-100">Buyurtmani tasdiqlash - ${{ total|floatformat:2 }}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-5">
+    <div class="card">
+      <div class="card-body">
+        <h6>Buyurtma tarkibi</h6>
+        {% for it in items %}
+        <div class="d-flex justify-content-between small mb-1">
+          <span>{{ it.product.name }} × {{ it.qty }}</span><span>${{ it.line_total }}</span>
+        </div>
+        {% endfor %}
+        <hr>
+        <div class="d-flex justify-content-between"><span>Subtotal</span><span>${{ subtotal }}</span></div>
+        <div class="d-flex justify-content-between text-success"><span>Chegirma</span><span>-{{ discount_percent_total }}%</span></div>
+        <div class="d-flex justify-content-between fw-bold"><span>Jami</span><span>${{ total|floatformat:2 }}</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

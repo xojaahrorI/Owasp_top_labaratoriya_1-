@@ -1,0 +1,24 @@
+{% extends "shop/base.html" %}
+{% block title %}Savatcha - NestMarket{% endblock %}
+{% block content %}
+<h3 class="mb-3">Savatcha</h3>
+{% if items %}
+<table class="table bg-white">
+  <tr><th>Mahsulot</th><th>Miqdor</th><th>Narx</th><th></th></tr>
+  {% for it in items %}
+  <tr>
+    <td><img src="/static/shop/img/icons/{{ it.product.category.slug }}.svg" style="width:20px;height:20px;background:{{ it.product.accent }};border-radius:5px;padding:3px;vertical-align:middle;margin-right:8px;" alt=""><a href="/products/{{ it.product.slug }}/">{{ it.product.name }}</a></td>
+    <td>{{ it.qty }}</td>
+    <td>${{ it.line_total }}</td>
+    <td><a href="/cart/remove/{{ it.product.id }}/" class="btn btn-sm btn-outline-danger">O'chirish</a></td>
+  </tr>
+  {% endfor %}
+</table>
+<div class="d-flex justify-content-between align-items-center">
+  <h5>Jami: ${{ total }}</h5>
+  <a href="/checkout/" class="btn btn-primary btn-lg">Buyurtma berish</a>
+</div>
+{% else %}
+<p class="text-muted">Savatchangiz bo'sh. <a href="/products/">Xarid qilishni boshlang</a>.</p>
+{% endif %}
+{% endblock %}

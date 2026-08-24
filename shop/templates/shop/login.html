@@ -1,0 +1,15 @@
+{% extends "shop/base.html" %}
+{% block title %}Kirish - NestMarket{% endblock %}
+{% block content %}
+<div class="col-md-5 mx-auto">
+<h3 class="mb-3">Tizimga kirish</h3>
+<form method="post" class="card p-4">
+  {% csrf_token %}
+  <div class="mb-2"><label class="form-label">Foydalanuvchi nomi</label><input name="username" class="form-control" required></div>
+  <div class="mb-3"><label class="form-label">Parol</label><input type="password" name="password" class="form-control" required></div>
+  <button class="btn btn-primary">Kirish</button>
+</form>
+<p class="mt-2">Hisobingiz yo'qmi? <a href="/register/">Ro'yxatdan o'tish</a> ·
+<a href="/account/security/">Parolni unutdingizmi?</a></p>
+</div>
+{% endblock %}

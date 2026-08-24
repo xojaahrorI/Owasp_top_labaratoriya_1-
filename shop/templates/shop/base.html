@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}NestMarket{% endblock %}</title>
+<link href="/static/shop/css/site.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">🛍️ NestMarket</a>
+    <button class="navbar-toggler" type="button" onclick="document.getElementById('nav').classList.toggle('show')">☰</button>
+    <div class="navbar-collapse" id="nav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="/products/">Mahsulotlar</a></li>
+        <li class="nav-item"><a class="nav-link" href="/cart/">Savatcha ({{ cart_count }})</a></li>
+        {% if user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link" href="/orders/">Buyurtmalarim</a></li>
+        <li class="nav-item"><a class="nav-link" href="/support/">Qo'llab-quvvatlash</a></li>
+        {% if user.profile.role == 'staff' or user.profile.role == 'admin' %}
+        <li class="nav-item"><a class="nav-link text-danger" href="/staff/">Staff panel</a></li>
+        {% endif %}
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav">
+        {% if user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link" href="/account/profile/">👤 {{ user.username }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="/account/progress/">🧪 Xavfsizlik bahosi</a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout/">Chiqish</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="/login/">Kirish</a></li>
+        <li class="nav-item"><a class="nav-link" href="/register/">Ro'yxatdan o'tish</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container py-4">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+  {% block content %}{% endblock %}
+</div>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <b style="color:#fff;">NestMarket</b><br>
+        Sizning kundalik xaridlaringiz uchun ishonchli platforma.
+      </div>
+      <div class="col-md-6" style="text-align:right;">
+        <a href="/support/">Yordam</a> · <a href="/account/security/">Xavfsizlik</a>
+        <p class="mt-2 mb-0">Powered by nestmarket-analytics v2.3.1</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/static/shop/js/analytics.min.js"></script>
+</body>
+</html>
